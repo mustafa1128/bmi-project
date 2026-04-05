@@ -8,12 +8,12 @@ app.use(express.json());
 
 // PostgreSQL bağlantı tənzimləmələri
 const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'bmi_db',
-    password: '4321', // Sənin təyin etdiyin parol
-    port: 5432,
+    connectionString: "postgresql://mustafa:pw746TpHwIiUNhFTBvFwhCbRIs0TN5h3@://render.com",
+    ssl: { 
+        rejectUnauthorized: false 
+    }
 });
+
 
 // TƏHLÜKƏSİZ (SECURE) ENDPOINT
 app.post('/save-bmi', async (req, res) => {
