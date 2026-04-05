@@ -13,6 +13,7 @@ const pool = new Pool({
     ssl: { rejectUnauthorized: false }
 });
 
+
 // Serverin işə düşdüyünü yoxlamaq üçün
 console.log("Server başladılır...");
 
