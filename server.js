@@ -8,13 +8,12 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(__dirname));
 
+// DÜZGÜN LİNK BURADADIR (Bunu tam olaraq kopyala):
 const pool = new Pool({
     connectionString: "postgresql://mustafa:pw746TpHwIiUNhFTBvFwhCbRIs0TN5h3@://render.com",
     ssl: { rejectUnauthorized: false }
 });
 
-
-// Serverin işə düşdüyünü yoxlamaq üçün
 console.log("Server başladılır...");
 
 app.get('/', (req, res) => {
@@ -22,7 +21,7 @@ app.get('/', (req, res) => {
 });
 
 app.post('/save-bmi', async (req, res) => {
-    console.log("Məlumat gəldi:", req.body); // Bu mütləq Logs-da görünməlidir
+    console.log("Məlumat gəldi:", req.body);
     
     const { fullname, age, weight, height, bmi_result } = req.body;
     
@@ -34,7 +33,7 @@ app.post('/save-bmi', async (req, res) => {
         console.log("Bazaya uğurla yazıldı!"); 
         res.status(200).send("Uğurla yazıldı!");
     } catch (err) {
-        console.error("KRİTİK BAZA XƏTASI:", err.message); // Xətanı mütləq bura yazacaq
+        console.error("KRİTİK BAZA XƏTASI:", err.message);
         res.status(500).json({ error: err.message });
     }
 });
