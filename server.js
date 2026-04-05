@@ -10,7 +10,7 @@ app.use(express.static(__dirname));
 
 // DÜZGÜN VƏ TAM LİNK BURADADIR. BİR DAHA DƏYİŞMƏ.
 const pool = new Pool({
-    connectionString: "postgresql://mustafa:pw746TpHwIiUNhFTBvFwhCbRIs0TN5h3@://render.com",
+    connectionString: "postgresql://mustafa:pw746TpHwIiUNhFTBvFwhCbRIs0TN5h3@dpg-d797t515pdvs73bghed0-a.frankfurt-postgres.render.com:5432/bmi_db_dtli",
     ssl: { 
         rejectUnauthorized: false 
     }
