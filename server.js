@@ -6,25 +6,23 @@ const path = require('path');
 const app = express();
 app.use(cors());
 app.use(express.json());
-
-// Statik dosyaları (HTML, CSS, JS) dışarı açar
 app.use(express.static(__dirname));
 
-// DOĞRU BAĞLANTI BURADA: Senin özel Render linkini buraya tam olarak yazdım
 const pool = new Pool({
     connectionString: "postgresql://mustafa:pw746TpHwIiUNhFTBvFwhCbRIs0TN5h3@://render.com",
-    ssl: { 
-        rejectUnauthorized: false 
-    }
+    ssl: { rejectUnauthorized: false }
 });
 
-// Ana sayfaya girince bmi.html dosyasını gösterir
+// Serverin işə düşdüyünü yoxlamaq üçün
+console.log("Server başladılır...");
+
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'bmi.html'));
 });
 
-// Verileri veritabanına kaydeden kısım
 app.post('/save-bmi', async (req, res) => {
+    console.log("Məlumat gəldi:", req.body); // Bu mütləq Logs-da görünməlidir
+    
     const { fullname, age, weight, height, bmi_result } = req.body;
     
     try {
@@ -32,13 +30,14 @@ app.post('/save-bmi', async (req, res) => {
         const values = [fullname, age, weight, height, bmi_result];
         
         await pool.query(queryText, values);
-        res.status(200).send("Məlumat təhlükəsiz şəkildə bazaya yazıldı!");
+        console.log("Bazaya uğurla yazıldı!"); 
+        res.status(200).send("Uğurla yazıldı!");
     } catch (err) {
-        console.error("Baza xətası:", err);
-        res.status(500).send("Xəta baş verdi.");
+        console.error("KRİTİK BAZA XƏTASI:", err.message); // Xətanı mütləq bura yazacaq
+        res.status(500).json({ error: err.message });
     }
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server ${PORT} portunda işləyir`));
+app.listen(PORT, () => console.log(`Server ${PORT} portunda aktivdir.`));
 
