@@ -16,7 +16,7 @@ async function calculateBMI() {
         return;
     }
 
-    // 2. Sənin təyin etdiyin limitlərin yoxlanılması
+    // 2. Limitlərin yoxlanılması
     if (weight >= 20 && weight <= 635 && height >= 0.5 && height <= 2.51) {
         
         const bmi = (weight / (height * height)).toFixed(2);
@@ -25,24 +25,20 @@ async function calculateBMI() {
 
         // 3. BMI dərəcəsinə görə status və rəng təyini
         if (bmi < 18.5) {
-            message = "Arıq";
-            color = "#f1c40f"; // Sarı
+            message = "Arıq"; color = "#f1c40f"; 
         } else if (bmi < 25) {
-            message = "Normal";
-            color = "#2ecc71"; // Yaşıl
+            message = "Normal"; color = "#2ecc71"; 
         } else if (bmi < 30) {
-            message = "Artıq çəkili";
-            color = "#e67e22"; // Narıncı
+            message = "Artıq çəkili"; color = "#e67e22"; 
         } else {
-            message = "Piylənmə";
-            color = "#e74c3c"; // Qırmızı
+            message = "Piylənmə"; color = "#e74c3c"; 
         }
 
         // 4. Nəticəni ekranda göstəririk
         resultElement.innerHTML = `BMI: ${bmi} <br> <span style="color: ${color}; font-weight: bold;">(${message})</span>`;
         resultElement.style.color = "#333";
 
-        // 5. Məlumatları Server vasitəsilə PostgreSQL bazasına göndəririk
+        // 5. Məlumat obyekti
         const userData = {
             fullname: name,
             age: age,
@@ -51,17 +47,17 @@ async function calculateBMI() {
             bmi_result: parseFloat(bmi)
         };
 
-      try {
-    // Köhnə http://localhost:3000 yerinə yeni Render linkini yazırıq
-    const response = await fetch('https://onrender.com', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(userData)
-    });
-);
+        // 6. Serverə göndərmə (Render Linkinlə)
+        try {
+            const response = await fetch('/save-bmi', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(userData)
+            });
 
             if (response.ok) {
                 console.log("Məlumat bazaya uğurla yazıldı!");
+                resultElement.innerHTML += "<br><small style='color:green;'>Bazaya yazıldı!</small>";
             } else {
                 console.error("Bazaya yazılarkən xəta baş verdi.");
             }
@@ -70,7 +66,6 @@ async function calculateBMI() {
         }
         
     } else {
-        // 6. Limitlərdən kənar dəyər girildikdə xəta mesajı
         resultElement.innerHTML = "Zəhmət olmasa real dəyərlər daxil edin!<br><small>(Çəki: 20-635 kq, Boy: 0.5-2.51 m)</small>";
         resultElement.style.color = "red";
     }
