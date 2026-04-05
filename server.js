@@ -1,30 +1,29 @@
 const express = require('express');
 const { Pool } = require('pg');
 const cors = require('cors');
-const path = require('path'); // Dosya yollarını yönetmek için gerekli
+const path = require('path');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-// 1. STATİK DOSYALARI PAYLAŞ: Bu satır sayfanın internette görünmesini sağlar
+// Statik dosyaları (HTML, CSS, JS) dışarı açar
 app.use(express.static(__dirname));
 
-// PostgreSQL bağlantı ayarları
+// DOĞRU BAĞLANTI BURADA: Senin özel Render linkini buraya tam olarak yazdım
 const pool = new Pool({
-    // Buradaki linki Render'daki "External Database URL" ile tam olarak değiştirin
     connectionString: "postgresql://mustafa:pw746TpHwIiUNhFTBvFwhCbRIs0TN5h3@://render.com",
     ssl: { 
         rejectUnauthorized: false 
     }
 });
 
-// 2. ANA SAYFA ROTASI: Linke tıklandığında BMI sayfasını açar
+// Ana sayfaya girince bmi.html dosyasını gösterir
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'bmi.html'));
 });
 
-// BMI Verilerini Kaydetme (Təhlükəsiz Endpoint)
+// Verileri veritabanına kaydeden kısım
 app.post('/save-bmi', async (req, res) => {
     const { fullname, age, weight, height, bmi_result } = req.body;
     
@@ -40,6 +39,6 @@ app.post('/save-bmi', async (req, res) => {
     }
 });
 
-// Render için dinamik port ayarı (Önemli!)
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server ${PORT} portunda işləyir`));
+
