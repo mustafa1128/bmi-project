@@ -51,12 +51,14 @@ async function calculateBMI() {
             bmi_result: parseFloat(bmi)
         };
 
-        try {
-            const response = await fetch('http://localhost:3000/save-bmi', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(userData)
-            });
+      try {
+    // Köhnə http://localhost:3000 yerinə yeni Render linkini yazırıq
+    const response = await fetch('https://onrender.com', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(userData)
+    });
+);
 
             if (response.ok) {
                 console.log("Məlumat bazaya uğurla yazıldı!");
