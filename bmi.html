@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Kalkulyator</title>
+    <!-- Xarici CSS faylını bura bağlayırıq -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Əsas ağ kart (container) hissəsi -->
+    <div class="container">
+        <h1>BMI Kalkulyator</h1>
+
+        <!-- İstifadəçi məlumatlarını daxil etmək üçün input qrupları -->
+        <div class="input-group">
+            <label>Ad və Soyad:</label>
+            <input type="text" id="fullname" placeholder="Məsələn: Əli Məmmədov">
+        </div>
+
+        <div class="input-group">
+            <label>Yaşınız:</label>
+            <input type="number" id="age" placeholder="Yaş">
+        </div>
+
+        <div class="input-group">
+            <label>Çəki (kq):</label>
+            <input type="number" id="weight" placeholder="Məsələn: 70">
+        </div>
+
+        <div class="input-group">
+            <label>Boy (metr):</label>
+            <input type="number" step="0.01" id="height" placeholder="Məsələn: 1.75">
+        </div>
+
+        <!-- Hesablama düyməsi; tıklandıqda java.js-dəki funksiyanı çağırır -->
+        <button onclick="calculateBMI()">Hesabla və Yadda Saxla</button>
+
+        <!-- Hesablama nəticəsinin çıxacağı yer -->
+        <h2 id="result"></h2>
+    </div>
+
+    <!-- JavaScript faylını bura bağlayırıq -->
+    <script src="java.js"></script>
+    
+</body>
+</html>
