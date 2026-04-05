@@ -8,10 +8,12 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(__dirname));
 
-// DÜZGÜN LİNK BURADADIR (Bunu tam olaraq kopyala):
+// DÜZGÜN VƏ TAM LİNK BURADADIR. BİR DAHA DƏYİŞMƏ.
 const pool = new Pool({
     connectionString: "postgresql://mustafa:pw746TpHwIiUNhFTBvFwhCbRIs0TN5h3@://render.com",
-    ssl: { rejectUnauthorized: false }
+    ssl: { 
+        rejectUnauthorized: false 
+    }
 });
 
 console.log("Server başladılır...");
@@ -40,4 +42,3 @@ app.post('/save-bmi', async (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server ${PORT} portunda aktivdir.`));
-
